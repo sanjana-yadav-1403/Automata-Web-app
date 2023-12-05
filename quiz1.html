@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finite Automata Quiz</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Additional styles for the quiz */
+    #quizContainer {
+      margin-top: 20px;
+    }
+
+    fieldset {
+      margin-bottom: 20px;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #3498db;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    #quizResults {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Finite Automata Quiz</h1>
+      <a href="home.html">Back to Home</a>
+    </header>
+
+    <section id="content">
+      <h2>Quiz</h2>
+      <div id="quizContainer">
+        <form id="quizForm">
+          <fieldset>
+            <legend>Question 1</legend>
+            <p>What is the purpose of a finite automaton?</p>
+            <label><input type="radio" name="q1" value="a">To perform arithmetic calculations</label>
+            <label><input type="radio" name="q1" value="b">To recognize patterns in strings</label>
+            <label><input type="radio" name="q1" value="c">To sort data in ascending order</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Question 2</legend>
+            <p>Which of the following is a property of regular languages?</p>
+            <label><input type="radio" name="q2" value="a">Context-free nature</label>
+            <label><input type="radio" name="q2" value="b">Turing completeness</label>
+            <label><input type="radio" name="q2" value="c">Closure under concatenation</label>
+          </fieldset>
+
+          <button type="button" onclick="checkQuiz()">Submit</button>
+        </form>
+
+        <div id="quizResults"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function checkQuiz() {
+  const quizForm = document.getElementById('quizForm');
+  const quizResults = document.getElementById('quizResults');
+  
+  // Define correct answers
+  const correctAnswers = {
+    q1: 'b',
+    q2: 'c',
+    // Add more correct answers as needed
+  };
+
+  let score = 0;
+
+  // Check each question
+  Object.keys(correctAnswers).forEach(question => {
+    const selectedAnswer = getSelectedAnswer(quizForm[question]);
+
+    if (selectedAnswer === correctAnswers[question]) {
+      score++;
+    }
+  });
+
+  // Display results
+  const totalQuestions = Object.keys(correctAnswers).length;
+  const resultMessage = `You scored ${score} out of ${totalQuestions}.`;
+
+  quizResults.innerText = resultMessage;
+}
+
+function getSelectedAnswer(radioGroup) {
+  for (let i = 0; i < radioGroup.length; i++) {
+    if (radioGroup[i].checked) {
+      return radioGroup[i].value;
+    }
+  }
+  return null; // No answer selected
+}
+
+  </script>
+</body>
+</html>
