@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pushdown Automata Quiz</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Add styles for the quiz page */
+#quizContainer {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+fieldset {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+legend {
+  font-weight: bold;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Add styles for the quiz results */
+#quizResults {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+#quizResults h2 {
+  margin-bottom: 20px;
+}
+
+#quizResults p {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+#quizResults p.correct {
+  color: #4caf50;
+}
+
+#quizResults p.incorrect {
+  color: #e74c3c;
+}
+
+#quizResults p.not-answered {
+  color: #f39c12;
+}
+
+  </style>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Pushdown Automata Quiz</h1>
+      <a href="home.html">Back to Home</a>
+    </header>
+
+    <section id="content">
+      <div id="quizContainer">
+        <h2>Quiz Questions</h2>
+        <form id="quizForm" onsubmit="submitQuiz(event)">
+          <fieldset>
+            <legend>Question 1</legend>
+            <p>What is the main purpose of a pushdown automaton?</p>
+            <label>
+              <input type="radio" name="q1" value="a"> Recognizing regular languages
+            </label>
+            <label>
+              <input type="radio" name="q1" value="b"> Recognizing context-free languages
+            </label>
+            <label>
+              <input type="radio" name="q1" value="c"> Recognizing context-sensitive languages
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Question 2</legend>
+            <p>What is the role of the stack in a pushdown automaton?</p>
+            <label>
+              <input type="radio" name="q2" value="a"> To store input symbols
+            </label>
+            <label>
+              <input type="radio" name="q2" value="b"> To store intermediate results
+            </label>
+            <label>
+              <input type="radio" name="q2" value="c"> To keep track of the computation history
+            </label>
+          </fieldset>
+
+          <!-- Add more questions as needed -->
+
+          <button type="submit">Submit Quiz</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function submitQuiz(event) {
+  event.preventDefault();
+
+  // Calculate the score and provide feedback
+  const quizForm = document.getElementById('quizForm');
+  const quizResults = calculateScore(quizForm);
+
+  // Display feedback on the page
+  displayResults(quizResults);
+}
+
+function calculateScore(form) {
+  const questions = form.querySelectorAll('fieldset');
+  let score = 0;
+
+  questions.forEach((question, index) => {
+    const selectedOption = question.querySelector('input:checked');
+    if (selectedOption) {
+      const answer = selectedOption.value;
+      // Add logic to check correct answers based on the question index
+      switch (index) {
+        case 0:
+          if (answer === 'b') {
+            score++;
+          }
+          break;
+        case 1:
+          if (answer === 'c') {
+            score++;
+          }
+          break;
+        // Add cases for more questions
+      }
+    }
+  });
+
+  return { score, total: questions.length };
+}
+
+function displayResults(results) {
+  const resultContainer = document.createElement('div');
+  resultContainer.innerHTML = `<h2>Quiz Results</h2>
+                               <p>Your score: ${results.score}/${results.total}</p>`;
+
+  // Add feedback for each question
+  const questions = document.querySelectorAll('fieldset');
+  questions.forEach((question, index) => {
+    const selectedOption = question.querySelector('input:checked');
+    const feedback = document.createElement('p');
+    if (selectedOption) {
+      const answer = selectedOption.value;
+      // Add logic to check correct answers based on the question index
+      switch (index) {
+        case 0:
+          feedback.textContent = answer === 'b' ? 'Correct' : 'Incorrect';
+          break;
+        case 1:
+          feedback.textContent = answer === 'c' ? 'Correct' : 'Incorrect';
+          break;
+        // Add cases for more questions
+      }
+    } else {
+      feedback.textContent = 'Not answered';
+    }
+
+    resultContainer.appendChild(feedback);
+  });
+
+  // Append the results to the document
+  const contentSection = document.getElementById('content');
+  contentSection.innerHTML = '';
+  contentSection.appendChild(resultContainer);
+}
+
+
+  </script>
+</body>
+</html>
