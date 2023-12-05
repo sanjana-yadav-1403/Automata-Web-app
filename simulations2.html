@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formal Languages Simulation</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Additional styles for the simulation */
+    #simulationContainer {
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+
+    #inputString {
+      margin-bottom: 10px;
+    }
+
+    #result {
+      font-weight: bold;
+      color: #27ae60;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Formal Languages Simulation</h1>
+      <a href="home.html">Back to Home</a>
+    </header>
+
+    <section id="content">
+      <h2>Interactive Simulation</h2>
+      <p>
+        Simulate the recognition of strings by a regular expression.
+      </p>
+
+      <div id="simulationContainer">
+        <label for="inputString">Input String:</label>
+        <input type="text" id="inputString" placeholder="Enter a string">
+        <button onclick="checkString()">Check</button>
+        <div id="result"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function checkString() {
+  const inputString = document.getElementById('inputString').value;
+  const regexPattern = /^a(b|c)+$/; // Example regular expression
+
+  const resultElement = document.getElementById('result');
+
+  if (regexPattern.test(inputString)) {
+    resultElement.innerText = 'Accepted';
+    resultElement.style.color = '#27ae60'; // Green color for accepted
+  } else {
+    resultElement.innerText = 'Rejected';
+    resultElement.style.color = '#e74c3c'; // Red color for rejected
+  }
+}
+
+  </script>
+</body>
+</html>
