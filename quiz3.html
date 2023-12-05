@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formal Languages Quiz</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Additional styles for the quiz */
+    #quizContainer {
+      margin-top: 20px;
+    }
+
+    fieldset {
+      margin-bottom: 20px;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #3498db;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    #quizResults {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Formal Languages Quiz</h1>
+      <a href="home.html">Back to Home</a>
+    </header>
+
+    <section id="content">
+      <h2>Quiz</h2>
+      <div id="quizContainer">
+        <form id="quizForm">
+          <fieldset>
+            <legend>Question 1</legend>
+            <p>What is the purpose of regular expressions in formal languages?</p>
+            <label><input type="radio" name="q1" value="a">To define context-free grammars</label>
+            <label><input type="radio" name="q1" value="b">To describe regular languages</label>
+            <label><input type="radio" name="q1" value="c">To implement Turing machines</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Question 2</legend>
+            <p>Which of the following is a regular language?</p>
+            <label><input type="radio" name="q2" value="a">L = {a^n b^n | n ≥ 0}</label>
+            <label><input type="radio" name="q2" value="b">L = {a^n b^n c^n | n ≥ 0}</label>
+            <label><input type="radio" name="q2" value="c">L = {a^n | n ≥ 0}</label>
+          </fieldset>
+
+          <button type="button" onclick="checkQuiz()">Submit</button>
+        </form>
+
+        <div id="quizResults"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function checkQuiz() {
+  const quizForm = document.getElementById('quizForm');
+  const quizResults = document.getElementById('quizResults');
+  
+  // Define correct answers
+  const correctAnswers = {
+    q1: 'b',
+    q2: 'c',
+    // Add more correct answers as needed
+  };
+
+  let score = 0;
+
+  // Check each question
+  Object.keys(correctAnswers).forEach(question => {
+    const selectedAnswer = getSelectedAnswer(quizForm[question]);
+
+    if (selectedAnswer === correctAnswers[question]) {
+      score++;
+    }
+  });
+
+  // Display results
+  const totalQuestions = Object.keys(correctAnswers).length;
+  const resultMessage = `You scored ${score} out of ${totalQuestions}.`;
+
+  quizResults.innerText = resultMessage;
+}
+
+function getSelectedAnswer(radioGroup) {
+  for (let i = 0; i < radioGroup.length; i++) {
+    if (radioGroup[i].checked) {
+      return radioGroup[i].value;
+    }
+  }
+  return null; // No answer selected
+}
+
+  </script>
+</body>
+</html>
